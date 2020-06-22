@@ -1,4 +1,8 @@
-def app(environ, start_response):
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return [bytes('\r\n'.join(environ['QUERY_STRING'].split('&')),
-                  encoding="utf8")]
+
+
+def web_application(environ, start_response):
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain')]
+    result = ['{}\n'.format(item).encode() for item in environ['QUERY_STRING'].split('&')]
+    start_response(status, response_headers)
+    return result
